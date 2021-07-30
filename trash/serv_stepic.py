@@ -8,7 +8,6 @@ def thread_function(conn, addr):
         if data.decode() == 'close': break
         conn.send(data)
         
-
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind(('0.0.0.0', 2222))
     s.listen(10)
