@@ -1,13 +1,12 @@
 import socket
 import threading
 
-def thread_function(conn, addr,i):
-    print(i)
-    
+def thread_function(conn, addr, i):
     while True:
         data = conn.recv(1024)
-        conn.send(data)
+        
         if data.decode() == 'close': break
+        conn.send(data)
         
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
