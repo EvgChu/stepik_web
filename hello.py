@@ -8,10 +8,12 @@ def simple_app(environ, start_response):
                      headers: list[(header_name: str, header_value: str)]))
                   -> body: iterable of strings
     """
-    status = '200 OK'
-    response_headers = [('Content-type', 'text/plain')]
-    start_response(status, response_headers)
-    return ("\n".join(environ['QUERY_STRING'].strip("/?").split("&"))).encode()
+    data = ("\n".join(environ['QUERY_STRING'].strip("/?").split("&"))).encode()
+    start_response( "200 OK",[
+           ("Content-Type","text/plain"),
+           ("Content-Lenght", str(len(data)))
+        ])
+    return iter([data])
 
 if __name__ == "__main__":
     print("For test")
