@@ -11,7 +11,7 @@ def simple_app(environ, start_response):
     status = '200 OK'
     response_headers = [('Content-type', 'text/plain')]
     start_response(status, response_headers)
-    return "\n".join(environ['QUERY_STRING'].strip("/?").split("&"))
+    return ("\n".join(environ['QUERY_STRING'].strip("/?").split("&"))).encode()
 
 if __name__ == "__main__":
     print("For test")
