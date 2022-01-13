@@ -1,11 +1,12 @@
+echo "Start nginx"
 sudo rm -rf /etc/nginx/sites-enabled/default
-sudo ln -sf /home/box/web/etc/nginx.conf  /etc/nginx/sites-enabled/test.conf
+sudo cp -f etc/nginx.conf  /etc/nginx/sites-enabled/default
 sudo /etc/init.d/nginx restart
-# sudo ln -s /home/box/web/etc/gunicorn.conf   /etc/gunicorn.d/test
-# sudo /etc/init.d/gunicorn restart
-# sudo /etc/init.d/mysql start
-sudo gunicorn --bind='0.0.0.0:8080' hello:simple_app &
-sleep 5
+printenv VIRTUAL_ENV
+echo "Start gunicorn" 
+sudo ./venv/bin/gunicorn -c conf_gunicorn_hello.py hello:simple_app &
+
+sleep 1
 curl -vv 'http://127.0.0.1/'
 curl -vv 'http://127.0.0.1/hello/?a=1&a=2&b=3'
 curl -vv 'http://127.0.0.1:8080/?a=1&a=2&b=3'
