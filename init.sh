@@ -11,21 +11,14 @@ then
     sudo ./venv/bin/gunicorn -c etc/conf_gunicorn_dj.py ask.wsgi:application &
 else
     echo "not VIRTUAL_ENV" 
-    sudo apt-get update
-    sudo apt-get install -y python3.5
-    sudo apt-get install -y python3.5-dev
-    sudo unlink /usr/bin/python3
-    sudo ln -s /usr/bin/python3.5 /usr/bin/python3
-    sudo pip3 install --upgrade pip
-    sudo pip3 install --upgrade django==2.1
-    sudo pip3 install --upgrade gunicorn
+    sudo pip3 install django==2.0
 
     sudo gunicorn -c etc/conf_gunicorn_hello.py hello:simple_app &
     sudo gunicorn -c etc/conf_gunicorn_dj.py ask.wsgi:application &
 fi
 
 
-# sleep 1
-# curl -vv 'http://127.0.0.1/'
-# curl -vv 'http://127.0.0.1/hello/?a=1&a=2&b=3'
-# curl -vv 'http://127.0.0.1:8080/?a=1&a=2&b=3'
+sleep 1
+curl -vv 'http://127.0.0.1/'
+curl -vv 'http://127.0.0.1/hello/?a=1&a=2&b=3'
+curl -vv 'http://127.0.0.1:8080/?a=1&a=2&b=3'
