@@ -18,7 +18,9 @@ else
 fi
 
 
-sleep 1
+
+
+Wsleep 1
 curl -vv 'http://127.0.0.1/'
 curl -vv 'http://127.0.0.1/hello/?a=1&a=2&b=3'
 curl -vv 'http://127.0.0.1:8080/?a=1&a=2&b=3'
