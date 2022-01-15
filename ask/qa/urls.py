@@ -20,11 +20,11 @@ from qa import views
 urlpatterns = [
     path( '',  views.test ),
     re_path(r'^login\/.*$', views.test),
-    path( 'signup',  views.test ),
+    path( 'signup/',  views.test ),
     path( "questin/<int:id>/",  views.test ),
-    path( 'ask',  views.test ),
-    path( 'popular',  views.test ),
-    path( 'new',  views.test ),
+    path( 'ask/',  views.test ),
+    path( 'popular/',  views.test ),
+    path( 'new/',  views.test ),
 ]
 
 # /
