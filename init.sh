@@ -17,6 +17,7 @@ else
     sudo gunicorn -c etc/conf_gunicorn_dj.py ask.wsgi:application &
 fi
 
+sudo /etc/init.d/mysql start
 
 
 
