@@ -76,15 +76,17 @@ WSGI_APPLICATION = 'ask.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'web',
-        'USER': 'box',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# mysql disable, using mysqlite
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'stepik_course_mail_ru',
+#        'USER': 'box',
+#        'PASSWORD': 'box',
+#        'HOST': '',
+#        'PORT': '',
     }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
