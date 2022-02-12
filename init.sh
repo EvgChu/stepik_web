@@ -3,6 +3,17 @@ sudo rm -rf /etc/nginx/sites-enabled/default
 sudo cp -f etc/nginx.conf  /etc/nginx/sites-enabled/default
 sudo /etc/init.d/nginx restart
 
+echo "Start MySql"
+sudo /etc/init.d/mysql start
+mysql -uroot -e "create database web;"
+mysql -uroot -e "create user 'box'@'localhost' identified by '1234';"
+mysql -uroot -e "grant all privileges on web.* to 'box'@'localhost' with grant option;"
+
+cd ask
+python3 manage.py makemigrations qa
+python3 manage.py migrate
+cd ..
+
 echo "Start gunicorn" 
 if [[ "$VIRTUAL_ENV" != "" ]]
 then
