@@ -12,31 +12,31 @@ class QuestionManager(models.Manager):
 
 
 class Question(models.Model):
-    # Question - вопрос
+    # Question - 
     objects = QuestionManager() 
-    # title - заголовок вопроса
+    # title - 
     title = models.CharField(max_length=255)
-    # text - полный текст вопроса
+    # text - 
     text = models.TextField()
-    # added_at - дата добавления вопроса
+    # added_at - 
     added_at = models.DateTimeField(blank=True, auto_now_add=True) 
-    # rating - рейтинг вопроса (число)
+    # rating - 
     rating = models.IntegerField()
-    # author - автор вопроса
+    # author - 
     author = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
-    # likes - список пользователей, поставивших "лайк"
+    # likes - 
     likes = models.ManyToManyField(User, related_name='question_like_user')
     
     
 class Answer(models.Model):
-    # Answer - ответ
-    # text - текст ответа
+    # Answer - 
+    # text - 
     text = models.TextField()
-    # added_at - дата добавления ответа
+    # added_at - 
     added_at = models.DateTimeField(blank=True, auto_now_add=True) 
-    # question - вопрос, к которому относится ответ
+    # question - 
     question = models.ForeignKey(Question, null=True, on_delete=models.CASCADE)
-    # author - автор ответа
+    # author - 
     aauthor = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     
     
