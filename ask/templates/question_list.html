@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %} {{ block.super }} {% endblock title %}
+{% block content %}
+    <div class="center"> 
+        {% for obj in page.objects_list %}
+            <p> {{obj}} </p>
+        {% endfor %}
+    </div>
+    <div class="center"> 
+        <div class="pagination">
+            <a href="{{ paginator.baseurl }}{{ page.start_index }}"> 
+                &laquo;
+            </a>
+            {% for p in paginator.page_range %}
+                {% if p.number == page.number %}
+                <div class="active"> 
+                {% else %}
+                <div>
+                {% endif %}
+                    <a href="{{ paginator.baseurl }}{{ p.number }}"> 
+                        {{ p.number }} 
+                    </a>
+                </div>
+            {% endfor %}
+            <a href="{{ paginator.baseurl }}{{ page.end_index }}"> 
+                &raquo;
+            </a>
+        </div>
+    </div>
+{% endblock content %}
+ 

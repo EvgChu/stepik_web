@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.urls import reverse
 # Create your models here.
 
 
@@ -23,6 +23,12 @@ class Question(models.Model):
 
     objects = QuestionManager()
 
+    # def get_url(self):
+    #     return reverse()
+
+    def __str__(self) -> str:
+        return self.title
+
 class Answer(models.Model):
     text = models.TextField(max_length=255, default='')
     added_at = models.DateTimeField(auto_now_add=True)
@@ -30,4 +36,5 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, null=True, on_delete=models.CASCADE)
     author = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 
-    
+    def __str__(self) -> str:
+        return self.text    
