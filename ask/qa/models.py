@@ -26,7 +26,7 @@ class Question(models.Model):
     def get_absolute_url(self):
         return reverse('details', args=[str(self.id)])
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.title
 
 class Answer(models.Model):
@@ -36,5 +36,5 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, null=True, on_delete=models.CASCADE)
     author = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.text    
