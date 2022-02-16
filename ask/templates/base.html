@@ -16,7 +16,10 @@
           border: 1px solid #ddd;
           padding: 8px 16px;
         }
-        
+        .answer {
+          border: 2px solid #FF0000;
+          padding: 16px 16px;
+        }       
         .pagination a {
           color: black;
           float: left;
@@ -39,6 +42,9 @@
 </head>
 <body>
     <h1 class="center"> Вопрос и ответ </h1>
+    <div class="center"> <a href="{% url 'index'%}"> Главная</a></div>
+    <div class="center"> <a href="{% url 'popular'%}"> Популярное</a></div>
     {% block content %}{% endblock content %}
+
 </body>
 </html>

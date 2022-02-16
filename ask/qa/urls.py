@@ -20,7 +20,7 @@ from qa import views
 urlpatterns = [
     path( '',  views.questions_list, name='index' ),
     path( "question/<int:id>/",  views.details_question, name='details' ),
-    path( 'popular/',  views.popular ),
+    path( 'popular/',  views.popular, name='popular' ),
 \
 ]
 
