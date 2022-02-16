@@ -2,27 +2,26 @@
 {% block title %} {{ block.super }} {% endblock title %}
 {% block content %}
     <div class="center"> 
-        {% for obj in page.objects_list %}
-            <p> {{obj}} </p>
+        {% for obj in page.object_list %}
+            <p class="question"><a href="{{ paginator.question_url }}{{ obj.id }}">  {{obj}} </a> </p>
         {% endfor %}
     </div>
     <div class="center"> 
         <div class="pagination">
-            <a href="{{ paginator.baseurl }}{{ page.start_index }}"> 
+            <a href="{{ paginator.baseurl }}1"> 
                 &laquo;
             </a>
             {% for p in paginator.page_range %}
-                {% if p.number == page.number %}
-                <div class="active"> 
+                {% if p == page.number %}
+                <a class="active"
                 {% else %}
-                <div>
-                {% endif %}
-                    <a href="{{ paginator.baseurl }}{{ p.number }}"> 
-                        {{ p.number }} 
+                <a 
+                {% endif %} href="{{ paginator.baseurl }}{{ p }}"> 
+                    
+                        {{ p }} 
                     </a>
-                </div>
-            {% endfor %}
-            <a href="{{ paginator.baseurl }}{{ page.end_index }}"> 
+                      {% endfor %}
+            <a href="{{ paginator.baseurl }}{{ paginator.num_pages }}"> 
                 &raquo;
             </a>
         </div>
