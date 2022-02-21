@@ -21,7 +21,8 @@ urlpatterns = [
     path( '',  views.questions_list, name='index' ),
     path( "question/<int:id>/",  views.details_question, name='details' ),
     path( 'popular/',  views.popular, name='popular' ),
-\
+    path('ask/', views.ask_new, name='ask_new'),
+
 ]
 
 # /

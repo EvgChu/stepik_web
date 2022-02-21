@@ -1,12 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse 
+from django.http import HttpResponse
+from qa.forms import AskForm , AnswerForm
 from qa.models import Answer, Question
 from django.core.paginator import Paginator, EmptyPage
 from django.urls import reverse, resolve
-from django.shortcuts import render
-
-def test(request, *args, **kwargs):
-    return HttpResponse('OK')
+from django.shortcuts import render, redirect
+ 
 
 
 def questions_list(request):
@@ -28,12 +27,24 @@ def questions_list(request):
     # try:
     #     answers = quest.objects.filter()
 
-def details_question(request, id): 
+def details_question(request, id):
     question = get_object_or_404(Question,id=id)
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            comment = form.save()
+            comment.question = question
+            comment.save()
+            form = AnswerForm()
+        # return redirect('details', id=post.id)
+    else:
+        form = AnswerForm()
+
     answer = Answer.objects.filter(question=question)
     content = {
         "question": question,
-        "answer": answer
+        "answer": answer,
+        "form": form,
         }
     return render(request, "question_one.html", content)
 
@@ -53,3 +64,14 @@ def popular(request):
         "page": page,
         }
     return render(request, "question_list.html", content)
+ 
+def ask_new(request):
+    if request.method == "POST":
+        form = AskForm(request.POST)
+        if form.is_valid():
+            post = form.save()
+            post.save()
+            return redirect('details', id=post.id)
+    else:  
+        form = AskForm()
+    return render(request, 'new_question.html', {'form': form})  
