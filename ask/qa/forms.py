@@ -11,8 +11,8 @@ class AskForm(forms.ModelForm):
         fields = ('title', 'text',)
 
 class AnswerForm(forms.ModelForm): 
-    text = forms.CharField(widget=forms.Textarea)
+    # text = forms.CharField(widget=forms.Textarea)
     # question = forms.CharField(widget=forms.NumberInput)
     class Meta:
         model = Answer
-        fields = ('text',)
+        fields = ('text',"question")

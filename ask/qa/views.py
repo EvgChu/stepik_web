@@ -38,7 +38,7 @@ def details_question(request, id):
             form = AnswerForm()
         # return redirect('details', id=post.id)
     else:
-        form = AnswerForm()
+        form = AnswerForm(initial={'question': question.id})
 
     answer = Answer.objects.filter(question=question)
     content = {
