@@ -94,7 +94,7 @@ def signup(request):
 def login_view(request): 
     
     if request.method == "POST":
-        form_auth = AuthenticationForm(request.POST)
+        form_auth = AuthenticationForm(request=request, data=request.POST)
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
