@@ -21,8 +21,10 @@ urlpatterns = [
     path( '',  views.questions_list, name='index' ),
     path( "question/<int:id>/",  views.details_question, name='details' ),
     path( 'popular/',  views.popular, name='popular' ),
-    path('ask/', views.ask_new, name='ask_new'),
-
+    path( 'ask/', views.ask_new, name='ask_new'),
+    path( 'signup/', views.signup, name='signup'),
+    path( 'login/', views.login_view, name='login'),
+    path( 'logout/', views.logout_view, name='logout'),
 ]
 
 # /

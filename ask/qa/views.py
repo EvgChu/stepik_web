@@ -7,6 +7,15 @@ from django.urls import reverse, resolve
 from django.shortcuts import render, redirect
  
 
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login
+
+def testCookie(response):
+    response.set_cookie('myCookie',"12345")
+    return response
+
+
 
 def questions_list(request):
     question = Question.objects.new()
@@ -17,15 +26,14 @@ def questions_list(request):
         page = paginator.page(page)
     except EmptyPage:
         page = paginator.page(1)
-    print(page)
     content = {
+        "user": request.user,
         "question": question,
         "paginator": paginator,
         "page": page,
         }
-    return render(request, "question_list.html", content)
-    # try:
-    #     answers = quest.objects.filter()
+    return testCookie(render(request, "question_list.html", content))
+
 
 def details_question(request, id):
     question = get_object_or_404(Question,id=id)
@@ -42,6 +50,7 @@ def details_question(request, id):
 
     answer = Answer.objects.filter(question=question)
     content = {
+        "user": request.user,
         "question": question,
         "answer": answer,
         "form": form,
@@ -59,6 +68,7 @@ def popular(request):
         page = paginator.page(1)
     print(page)
     content = {
+        "user": request.user,
         "question": question,
         "paginator": paginator,
         "page": page,
@@ -75,3 +85,30 @@ def ask_new(request):
     else:  
         form = AskForm()
     return render(request, 'new_question.html', {'form': form})  
+
+
+def signup(request):
+
+    return
+
+def login_view(request): 
+    
+    if request.method == "POST":
+        form_auth = AuthenticationForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        print(user, form_auth.is_valid())
+        if form_auth.is_valid() :
+            login(request, user)
+            print(user)
+            return redirect('index')
+    else:
+        form_auth = AuthenticationForm()
+
+    return render(request, 'login.html' , {"form_auth":form_auth})  
+
+    
+def logout_view(request):
+    logout(request)
+    return redirect('index')
