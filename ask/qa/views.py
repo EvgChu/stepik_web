@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from qa.forms import AskForm , AnswerForm
+from qa.forms import AskForm , AnswerForm, SignUpForm
 from qa.models import Answer, Question
 from django.core.paginator import Paginator, EmptyPage
 from django.urls import reverse, resolve
@@ -12,7 +12,7 @@ from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 
 def testCookie(response):
-    response.set_cookie('myCookie',"12345")
+    # response.set_cookie('myCookie',"12345")
     return response
 
 
@@ -88,20 +88,28 @@ def ask_new(request):
 
 
 def signup(request):
+    if request.method == "POST":
+        form_auth = SignUpForm(request.POST)
 
-    return
+        if form_auth.is_valid() :
+            form_auth.save()
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            print(user ,username,password)
+            login(request, user)
+            return redirect('index')
+    else:
+        form_auth = SignUpForm()
+
+    return render(request, 'signup.html' , {"form_auth":form_auth})  
 
 def login_view(request): 
     
     if request.method == "POST":
         form_auth = AuthenticationForm(request=request, data=request.POST)
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        print(user, form_auth.is_valid())
         if form_auth.is_valid() :
-            login(request, user)
-            print(user)
+            login(request, form_auth.get_user())
             return redirect('index')
     else:
         form_auth = AuthenticationForm()
