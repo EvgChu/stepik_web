@@ -78,6 +78,7 @@ def popular(request):
 def ask_new(request):
     if request.method == "POST":
         form = AskForm(request.POST)
+        form._user = request.user
         if form.is_valid():
             post = form.save()
             post.save()
@@ -89,14 +90,13 @@ def ask_new(request):
 
 def signup(request):
     if request.method == "POST":
-        form_auth = SignUpForm(request.POST)
-
+        form_auth = SignUpForm(data = request.POST)
+        # http://www.dcs.gla.ac.uk/~leif/di/tutorial/login.html
         if form_auth.is_valid() :
-            form_auth.save()
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(request, username=username, password=password)
-            print(user ,username,password)
+            user = form_auth.save()
+            pw = user.password
+            user.set_password(pw)
+            user.save()
             login(request, user)
             return redirect('index')
     else:
